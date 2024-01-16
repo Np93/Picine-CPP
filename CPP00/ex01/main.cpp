@@ -22,6 +22,11 @@ int	main(void)
 			std::cout << "Auto destruction on. Hasta la vista BABY" << std::endl;
 			start = false;
 		}
+		if (!std::cin.good() || std::cin.eof())
+		{
+			std::cout << "Hey bro you break my ass by\n";
+			return (0);
+		}
 	}
 	return (0);
 }

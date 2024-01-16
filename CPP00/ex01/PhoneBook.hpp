@@ -11,6 +11,7 @@ class PhoneBook
 private:
 	 Contact contacts[8];
 	int	count;
+	int log;
 
 public:
 	PhoneBook();

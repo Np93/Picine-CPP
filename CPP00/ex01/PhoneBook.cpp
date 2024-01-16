@@ -3,6 +3,7 @@
 PhoneBook::PhoneBook()
 {
 	this->count = 0;
+	this->log = 0;
 }
 
 PhoneBook::~PhoneBook()
@@ -20,12 +21,14 @@ void	PhoneBook::welcome(void)
 void	PhoneBook::add_contact(void)
 {
 	if (this->count == 8)
-		std::cout << "the PhoneBook is full" << std::endl;
-	else
+		this->count -= 8;
+	if (this->contacts[this->count].set_info(this->count + 1))
 	{
-		if (this->contacts[this->count].set_info(this->count + 1))
-			this->count++;
+		this->count++;
+		this->log++;
 	}
+	if (this->log > 8)
+		this->log = 8;
 }
 
 void	PhoneBook::search_header(void)
@@ -33,7 +36,7 @@ void	PhoneBook::search_header(void)
 	std::cout << "|-------------------------------------------|" << std::endl;
 	std::cout << "|     Index|First Name| Last Name|  Nickname|" << std::endl;
 	std::cout << "|-------------------------------------------|" << std::endl;
-	for (int i = 0; i < this->count; i++)
+	for (int i = 0; i < this->log; i++)
 		this->contacts[i].display_search();
 	std::cout << "|-------------------------------------------|" << std::endl;
 }
@@ -53,11 +56,13 @@ void	PhoneBook::search_contact(void)
 		std::cout << "enter an Index or put 0 to quit" << std::endl;
 		while (!(std::cin >> index) || (index < 0 || index > this->count))
 		{
+			if (!std::cin.good() || std::cin.eof())
+				return ;
 			std::cin.clear();
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			std::cout << "Index is invalid" << std::endl;
 		}
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');	
 		if (index == 0)
 			return;
 		else if (index > 0)

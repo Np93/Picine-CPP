@@ -25,6 +25,8 @@ bool Contact::set_info(int index)
 	{
 		std::cout << Contact::table_name[i] << ":\n>";
 		std::getline(std::cin, this->info[i]);
+		if (!std::cin.good() || std::cin.eof())
+			return (false);
 	}
 	size_t size = 0;
 	for (int i = FirstName; i <= DarkestSecret; i++)
